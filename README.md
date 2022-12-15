@@ -25,8 +25,11 @@ print(df)
 fig=px.bar(df, x='item', y='SALES_CONT', color='SLE_PRC',color_continuous_scale=px.colors.sequential.Oranges) 
 fig.update_layout(width=600)
 ```
+<img width="975" alt="스크린샷 2022-12-15 오후 11 33 23" src="https://user-images.githubusercontent.com/90183114/207887559-06d19ba6-e98f-4faa-bec6-fe3b474bd9a7.png">
 
-## CODE 
+
+
+## MUSINSA 크롤링 CODE 
 
 ```
 import selenium
