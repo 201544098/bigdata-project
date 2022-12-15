@@ -109,3 +109,43 @@ for i in rank_html:
     rank_no_list.append(i.string.strip())
 rank_no_list[0:10]
 ```
+
+##### CSV 추출
+
+```
+start = 1
+title_list = []
+url_list = []
+# price_list = []
+
+while start<37: #1페이지~36페이지
+    try:
+        url = 'https://www.musinsa.com/brands/musinsastandard?category3DepthCodes=&category2DepthCodes=&category1DepthCode=&colorCodes=&startPrice=&endPrice=&exclusiveYn=&includeSoldOut=&saleGoods=&timeSale=&includeKeywords=&sortCode=emt_high&tags=&page={}&size=90&listViewType=small&campaignCode=&groupSale=&outletGoods=false&boutiqueGoods='.format(start)
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'lxml')
+        
+        for soup in soup.find_all('a', attrs={'class':'img-block'}):
+            title_list.append(soup['title'])
+            url_list.append('https:' + soup['href'])
+            
+        start += 1
+    
+    except:
+        print(start)
+        break
+```
+
+```
+df = pd.DataFrame({'상품명': title_list,
+                  'url': url_list})
+df.to_csv('무신사.csv', encoding = 'utf-8-sig')
+```
+##### csv파일 불러오기
+
+```
+import pandas as pd
+
+df = pd.read_csv('/content/무신사.csv')
+df.head()
+```
+<img width="735" alt="스크린샷 2022-12-15 오후 11 40 14" src="https://user-images.githubusercontent.com/90183114/207889108-fbc63cb0-0407-42ec-b704-b068da385664.png">
